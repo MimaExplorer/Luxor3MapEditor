@@ -67,36 +67,36 @@ target=0,0
 #The "Forever" Loop
 active=True
 while active:
-    #print(counter)
     pg.mixer.init()
     pg.mixer.music.set_volume(1)
     #On click adds the vertices
     for event in pg.event.get():
-        if event.type==pg.MOUSEBUTTONUP:
-            vertice=pg.mouse.get_pos()
-            iks=pg.mouse.get_pos()
-            if visible:
-                pg.draw.line(BG,(255,0,255),iks,vertice,width=10)
+        mouseup=pg.MOUSEBUTTONUP
+        if event.type==mouseup:
+            if mode=="vertices":
+                vertice=pg.mouse.get_pos()
+                iks=pg.mouse.get_pos()
+                if visible:
+                    pg.draw.line(BG,(255,0,255),iks,vertice,width=10)
+                    pg.display.update()
+                else:
+                    pg.draw.line(BG,(0,255,255),iks,vertice,width=10)
                 pg.display.update()
-            else:
-                pg.draw.line(BG,(0,255,255),iks,vertice,width=10)
-                pg.display.update()
-            vertnum+=1
-            vertis=*vertice,vis
-            vertices.append(vertis)
-            iks=vertice
-        elif event.type==pg.MOUSEBUTTONUP and mode=="reflektor":
-                    ref=pg.mouse.get_pos()
-                    target=tuple(input("Input Target").split())
-                    reflektor.append(ref)
-                    targets.append(target)
-        elif event.type==pg.MOUSEBUTTONUP and mode=="split":
-                    splitter=pg.mouse.get_pos()
-                    splits.append(splitter)
-        elif event.type==pg.MOUSEBUTTONUP and mode=="jars":
-                    jar=pg.mouse.get_pos()
-                    jars.append(jar)
-        #AltF4
+                vertnum+=1
+                vertis=*vertice,vis
+                vertices.append(vertis)
+                iks=vertice
+            elif mode=="reflektor":
+                ref=pg.mouse.get_pos()
+                reflektor.append(ref)
+                target=tuple(input("Input Target").split())
+                targets.append(target)
+            elif mode=="split":
+                splitter=pg.mouse.get_pos()
+                splits.append(splitter)
+            elif mode=="jars":
+                jar=pg.mouse.get_pos()
+                jars.append(jar)
         if event.type==pg.QUIT:
             actve=False
             pg.quit()
@@ -143,7 +143,7 @@ while active:
                         else:
                             c=str(m)
                             m+=1 
-                    print("reflect",c,""," { ",l," to ",p)
+                    print("reflect",c,""," { ",l," to ",p," }")
                 print("")
                 print("}")
                 print("")
@@ -158,6 +158,11 @@ while active:
                     print("pointspawn"+b," ",n)
                     d+=1
                 print("}")
+                print("Split Coordinates. DO NOT COPY THIS INTO PATH.LX3TRX!")
+                for w in splits:
+                    pos=splits.index(w)+1
+                    sp="Split #"+str(pos)
+                    print(sp,"",*w)
                 #(R)
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_r:
@@ -201,6 +206,7 @@ while active:
                     editorOpen=False
                     win.blit(BG, (0,0))
                     pg.display.update()
+        #AltF4
                 elif event.key==pg.K_p and mode=="split" and not editorOpen:
                     mode="vertices"
                     editorOpen=False
