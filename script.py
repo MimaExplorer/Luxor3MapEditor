@@ -1,5 +1,4 @@
 import pygame as pg
-import sys
 pg.init()
 #Initial Setup
 win_width,win_height = [1200,600]
@@ -38,6 +37,9 @@ printvis=[]
 m=1
 #Music
 l3ctn=pg.mixer_music.load("ctn.mp3")
+shown=pg.mixer.Sound("vert_sho.mp3")
+hidn=pg.mixer.Sound("vert_hid.mp3")
+savegame=pg.mixer.Sound("saved.mp3")
 pg.mixer.music.play()
 pg.mixer.music.play()
 pg.mixer.music.play()
@@ -77,11 +79,11 @@ while active:
                 vertice=pg.mouse.get_pos()
                 iks=pg.mouse.get_pos()
                 if visible:
-                    pg.draw.line(BG,(255,0,255),iks,vertice,width=10)
+                    pg.draw.line(win,(255,0,255),iks,vertice,width=10)
                     pg.display.update()
                 else:
-                    pg.draw.line(BG,(0,255,255),iks,vertice,width=10)
-                pg.display.update()
+                    pg.draw.line(win,(0,255,255),iks,vertice,width=10)
+                    pg.display.update()
                 vertnum+=1
                 vertis=*vertice,vis
                 vertices.append(vertis)
@@ -107,12 +109,15 @@ while active:
                 if event.key == pg.K_h and visible and mode=="vertices":
                     visible=False
                     vis=0.01
+                    pg.mixer.Sound.play(hidn)
                 elif event.key == pg.K_h and not visible and mode=="vertices":
                     visible=True
                     vis=0.02
+                    pg.mixer.Sound.play(shown)
             #(S)s
         if event.type==pg.KEYUP:
             if event.key == pg.K_s and not editorOpen:
+                pg.mixer.Sound.play(savegame)
                 print("//Luxor 3 Track Files")
                 print("")
                 print("Verts:")
