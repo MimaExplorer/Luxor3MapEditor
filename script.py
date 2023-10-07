@@ -253,6 +253,15 @@ while active:
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_d:
                 vertices.pop()
+        #Deleting Entire Paths (W)
+        if event.type == pg.KEYDOWN:
+            if event.key == pg.K_w:
+                vertices=[]
+                jars=[]
+                reflektor=[]
+                spits=[]
+                win.blit(BG,(0,0))
+                pg.display.update()
             #Credits (C)
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_c and not creditsOpen:
