@@ -252,7 +252,14 @@ while active:
             #Vertice Deletion (D)
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_d:
-                vertices.pop()
+                if mode == "vertices":
+                    vertices.pop()
+                elif mode == "reflektor":
+                    reflektor.pop()
+                elif mode == "jars":
+                    jars.pop()
+                elif mode == "split":
+                    splits.pop()
         #Deleting Entire Paths (W)
         if event.type == pg.KEYDOWN:
             if event.key == pg.K_w:
